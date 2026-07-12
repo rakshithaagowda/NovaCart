@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Cart</title>
+</head>
+<body>
+
+<h1>Your Cart</h1>
+
+{% if cart %}
+
+<table border="1" cellpadding="10">
+
+<tr>
+    <th>Product</th>
+    <th>Quantity</th>
+    <th>Subtotal</th>
+    <th>Action</th>
+</tr>
+
+{% for item in cart %}
+
+<tr>
+
+<td>{{ item.product.name }}</td>
+
+<td>{{ item.quantity }}</td>
+
+<td>₹{{ item.subtotal }}</td>
+
+<td>
+
+<form action="{% url 'cart_remove' item.product.id %}" method="post">
+
+{% csrf_token %}
+
+<button type="submit">
+Remove
+</button>
+
+</form>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<h2>Total: ₹{{ cart.get_total_price }}</h2>
+<br>
+
+<a href="{% url 'checkout' %}">
+    <button>
+        Proceed to Checkout
+    </button>
+</a>
+
+{% else %}
+
+<h3>Your cart is empty.</h3>
+
+{% endif %}
+
+<br>
+
+<a href="{% url 'product_list' %}">
+Continue Shopping
+</a>
+
+</body>
+</html>
