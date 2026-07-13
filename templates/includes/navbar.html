@@ -1,0 +1,89 @@
+<nav class="navbar navbar-expand-lg navbar-light custom-navbar sticky-top">
+
+    <div class="container">
+
+        <!-- Logo -->
+        <a class="navbar-brand fw-bold fs-3" href="{% url 'product_list' %}">
+            🛒 NovaCart
+        </a>
+
+        <!-- Mobile Toggle -->
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+        <!-- Navigation -->
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+
+            <ul class="navbar-nav mx-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link active"
+                       href="{% url 'product_list' %}">
+                        Home
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="#">
+                        Categories
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="#">
+                        About
+                    </a>
+                </li>
+
+            </ul>
+
+            <!-- Search -->
+
+            <form class="d-flex me-3"
+      action="{% url 'product_list' %}"
+      method="GET">
+
+    <input
+        class="form-control"
+        type="search"
+        name="q"
+        placeholder="Search products..."
+        value="{{ query|default:'' }}">
+
+</form>
+
+            <!-- Cart -->
+
+            <a href="{% url 'cart_detail' %}"
+               class="btn btn-primary me-2">
+
+                🛒 Cart
+
+            </a>
+
+            {% if user.is_authenticated %}
+                <div class="d-flex align-items-center">
+                    <a href="{% url 'profile' %}" class="btn btn-outline-light me-2">Profile</a>
+                    <a href="{% url 'logout' %}" class="btn btn-light">Logout</a>
+                </div>
+            {% else %}
+                <div class="d-flex align-items-center">
+                    <a href="{% url 'login' %}" class="btn btn-outline-light me-2">Login</a>
+                    <a href="{% url 'register' %}" class="btn btn-light">Sign Up</a>
+                </div>
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</nav>

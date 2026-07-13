@@ -1,37 +1,54 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{ product.name }}</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-<h1>{{ product.name }}</h1>
+{% block title %}
+{{ product.name }}
+{% endblock %}
 
-<p><strong>Price:</strong> ₹{{ product.price }}</p>
+{% block content %}
 
-<p>{{ product.description }}</p>
+<div class="container">
 
-<form action="{% url 'cart_add' product.id %}" method="post">
-    {% csrf_token %}
+    <div class="row">
 
-    <input
-        type="number"
-        name="quantity"
-        value="1"
-        min="1"
-        style="width:60px;"
-    >
+        <div class="col-md-6">
 
-    <button type="submit">
-        Add to Cart
-    </button>
-</form>
+            {% if product.image %}
+                <img src="{{ product.image.url }}"
+                     class="img-fluid rounded shadow">
+            {% endif %}
 
-<br>
+        </div>
 
-<a href="{% url 'product_list' %}">
-    ← Back to Products
-</a>
+        <div class="col-md-6">
 
-</body>
-</html>
+            <h2>{{ product.name }}</h2>
+
+            <h3 class="text-primary">
+                ₹{{ product.price }}
+            </h3>
+
+            <p>{{ product.description }}</p>
+
+            <form action="{% url 'cart_add' product.id %}" method="post">
+
+                {% csrf_token %}
+
+                <input type="number"
+                       name="quantity"
+                       value="1"
+                       min="1"
+                       class="form-control w-25 mb-3">
+
+                <button class="btn btn-success">
+                    Add to Cart
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

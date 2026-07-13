@@ -1,73 +1,100 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Your Cart</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-<h1>Your Cart</h1>
+{% block title %}
+Shopping Cart | NovaCart
+{% endblock %}
 
-{% if cart %}
+{% block content %}
 
-<table border="1" cellpadding="10">
+<div class="container">
 
-<tr>
-    <th>Product</th>
-    <th>Quantity</th>
-    <th>Subtotal</th>
-    <th>Action</th>
-</tr>
+    <h2 class="mb-4 fw-bold">🛒 Your Shopping Cart</h2>
 
-{% for item in cart %}
+    {% if cart %}
 
-<tr>
+    <div class="table-responsive">
 
-<td>{{ item.product.name }}</td>
+        <table class="table table-bordered table-hover align-middle shadow-sm bg-white">
 
-<td>{{ item.quantity }}</td>
+            <thead class="table-dark">
 
-<td>₹{{ item.subtotal }}</td>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Subtotal</th>
+                    <th>Action</th>
+                </tr>
 
-<td>
+            </thead>
 
-<form action="{% url 'cart_remove' item.product.id %}" method="post">
+            <tbody>
 
-{% csrf_token %}
+                {% for item in cart %}
 
-<button type="submit">
-Remove
-</button>
+                <tr>
 
-</form>
+                    <td>{{ item.product.name }}</td>
 
-</td>
+                    <td>{{ item.quantity }}</td>
 
-</tr>
+                    <td>₹{{ item.subtotal }}</td>
 
-{% endfor %}
+                    <td>
 
-</table>
+                        <form action="{% url 'cart_remove' item.product.id %}" method="post">
 
-<h2>Total: ₹{{ cart.get_total_price }}</h2>
-<br>
+                            {% csrf_token %}
 
-<a href="{% url 'checkout' %}">
-    <button>
-        Proceed to Checkout
-    </button>
-</a>
+                            <button class="btn btn-danger btn-sm">
+                                Remove
+                            </button>
 
-{% else %}
+                        </form>
 
-<h3>Your cart is empty.</h3>
+                    </td>
 
-{% endif %}
+                </tr>
 
-<br>
+                {% endfor %}
 
-<a href="{% url 'product_list' %}">
-Continue Shopping
-</a>
+            </tbody>
 
-</body>
-</html>
+        </table>
+
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mt-4">
+
+        <h4 class="fw-bold">
+            Total: ₹{{ cart.get_total_price }}
+        </h4>
+
+        <a href="{% url 'checkout' %}" class="btn btn-success btn-lg">
+            Proceed to Checkout
+        </a>
+
+    </div>
+
+    {% else %}
+
+    <div class="alert alert-info">
+
+        <h5>Your cart is empty.</h5>
+
+        <p>Add some amazing products to start shopping.</p>
+
+    </div>
+
+    {% endif %}
+
+    <div class="mt-4">
+
+        <a href="{% url 'product_list' %}" class="btn btn-outline-dark">
+            ← Continue Shopping
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

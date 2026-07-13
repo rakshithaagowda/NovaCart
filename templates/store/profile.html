@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile | NovaCart{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <h2 class="card-title mb-4">Your Profile</h2>
+
+                    <div class="mb-3">
+                        <strong>Username:</strong>
+                        <p class="mb-1">{{ user.username }}</p>
+                    </div>
+
+                    <div class="mb-3">
+                        <strong>Email:</strong>
+                        <p class="mb-1">{{ user.email|default:'Not provided' }}</p>
+                    </div>
+
+                    <div class="mb-3">
+                        <strong>Account Created:</strong>
+                        <p class="mb-1">{{ user.date_joined|date:'F j, Y' }}</p>
+                    </div>
+
+                    <div class="mt-4">
+                        <a href="{% url 'product_list' %}" class="btn btn-primary me-2">Continue Shopping</a>
+                        <a href="{% url 'logout' %}" class="btn btn-outline-secondary">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

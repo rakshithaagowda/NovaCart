@@ -1,28 +1,66 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Order Successful</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-<h1>🎉 Thank You!</h1>
+{% block title %}
+Order Successful | NovaCart
+{% endblock %}
 
-<h2>Your order has been placed successfully.</h2>
+{% block content %}
 
-<p>
-    <strong>Order ID:</strong>
-    {{ order.id }}
-</p>
+<div class="container">
 
-<p>
-    We have received your order and will process it soon.
-</p>
+    <div class="row justify-content-center">
 
-<br>
+        <div class="col-lg-7">
 
-<a href="{% url 'product_list' %}">
-Continue Shopping
-</a>
+            <div class="card shadow-lg border-0 rounded-4 text-center">
 
-</body>
-</html>
+                <div class="card-body p-5">
+
+                    <div class="display-1 mb-3">
+                        🎉
+                    </div>
+
+                    <h2 class="fw-bold text-success">
+                        Thank You!
+                    </h2>
+
+                    <p class="lead mt-3">
+                        Your order has been placed successfully.
+                    </p>
+
+                    <hr>
+
+                    <h5>
+                        Order ID:
+                        <span class="text-primary">
+                            #{{ order.id }}
+                        </span>
+                    </h5>
+
+                    <p class="text-muted mt-3">
+                        We've received your order and will begin processing it shortly.
+                        You'll receive updates as your order progresses.
+                    </p>
+
+                    <div class="mt-4">
+
+                        <a href="{% url 'product_list' %}"
+                           class="btn btn-primary btn-lg">
+
+                            Continue Shopping
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
