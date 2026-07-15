@@ -73,7 +73,10 @@
             {% if user.is_authenticated %}
                 <div class="d-flex align-items-center">
                     <a href="{% url 'profile' %}" class="btn btn-outline-light me-2">Profile</a>
-                    <a href="{% url 'logout' %}" class="btn btn-light">Logout</a>
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-light">Logout</button>
+                    </form>
                 </div>
             {% else %}
                 <div class="d-flex align-items-center">
